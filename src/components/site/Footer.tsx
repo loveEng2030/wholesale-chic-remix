@@ -1,9 +1,20 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, MapPin } from "lucide-react";
 import logo from "@/assets/jojo-logo.png";
-import { ADDRESS, PHONE, WA_DEFAULT } from "@/lib/data";
+import { ADDRESS, ADDRESS_EN, PHONE, WA_DEFAULT } from "@/lib/data";
+import { useI18n, type TKey } from "@/lib/i18n";
+
+const links: { to: string; key: TKey }[] = [
+  { to: "/catalog", key: "nav.catalog" },
+  { to: "/b2b", key: "nav.b2b" },
+  { to: "/story", key: "nav.story" },
+  { to: "/faq", key: "nav.faq" },
+  { to: "/contact", key: "nav.contact" },
+];
 
 export function Footer() {
+  const { t, tx } = useI18n();
+
   return (
     <footer className="mt-24 border-t border-border bg-card">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-3">
@@ -11,39 +22,46 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <img
               src={logo}
-              alt="لوجو جوجو ستورز"
+              alt={t("brand.name")}
               className="h-12 w-12 rounded-full object-cover ring-1 ring-border"
             />
             <div>
-              <p className="font-heading text-lg font-extrabold">JOJO Store</p>
+              <p className="font-heading text-lg font-extrabold">
+                {t("brand.name")}
+              </p>
               <p className="text-xs text-muted-foreground">
-                أزياء تناسب جميع الفئات
+                {t("brand.tagline")}
               </p>
             </div>
           </div>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            مكتب متخصص في بيع الملابس بالجملة — حريمي، رجالي، أطفال، هوم وير
-            وكاجوال، بخامات مختارة وأسعار مصنع للمحلات والموزعين.
+            {t("footer.about")}
           </p>
         </div>
 
         <div>
-          <h3 className="mb-4 font-heading font-bold">روابط سريعة</h3>
+          <h3 className="mb-4 font-heading font-bold">
+            {t("common.quickLinks")}
+          </h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/categories" className="hover:text-primary">الأقسام</Link></li>
-            <li><Link to="/catalog" className="hover:text-primary">الكتالوج</Link></li>
-            <li><Link to="/new-collection" className="hover:text-primary">الكولكشن الجديد</Link></li>
-            <li><Link to="/about" className="hover:text-primary">من نحن</Link></li>
-            <li><Link to="/contact" className="hover:text-primary">تواصل معنا</Link></li>
+            {links.map((l) => (
+              <li key={l.to}>
+                <Link to={l.to} className="hover:text-primary">
+                  {t(l.key)}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div>
-          <h3 className="mb-4 font-heading font-bold">تواصل معنا</h3>
+          <h3 className="mb-4 font-heading font-bold">
+            {t("common.contactUs")}
+          </h3>
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <span>{ADDRESS}</span>
+              <span>{tx(ADDRESS, ADDRESS_EN)}</span>
             </li>
             <li>
               <a
@@ -61,14 +79,14 @@ export function Footer() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 font-bold text-primary-foreground transition-colors hover:bg-primary/90"
               >
-                واتساب
+                {t("common.whatsapp")}
               </a>
             </li>
           </ul>
         </div>
       </div>
       <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-        JOJO Store — جملة الملابس بأناقة وأسعار المصنع
+        {t("footer.rights")}
       </div>
     </footer>
   );
