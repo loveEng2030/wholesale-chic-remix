@@ -56,25 +56,25 @@ const features = [
 const steps = [
   {
     num: "01",
-    image: categories[0].image,
+    image: categories[0]!.image,
     title: "تصفح الكتالوج",
     text: "اختر الموديلات المناسبة لمحلك من الكتالوج بكل الألوان والمقاسات.",
   },
   {
     num: "02",
-    image: categories[1].image,
+    image: categories[1]!.image,
     title: "تأكيد الطلب",
     text: "أرسل الأكواد والكميات عبر الواتساب ونحدد سعر الجملة حسب الكمية.",
   },
   {
     num: "03",
-    image: categories[2].image,
+    image: categories[2]!.image,
     title: "التجهيز والتغليف",
     text: "نجهز القطع ونراجع المقاسات والألوان قبل التغليف والشحن.",
   },
   {
     num: "04",
-    image: categories[3].image,
+    image: categories[3]!.image,
     title: "الشحن والاستلام",
     text: "شحن لكل المحافظات ومتابعة حتى وصول الشحنة إلى محلك.",
   },
