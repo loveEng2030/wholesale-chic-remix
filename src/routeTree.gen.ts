@@ -11,10 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as B2bRouteImport } from './routes/b2b'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as NewCollectionRouteImport } from './routes/new-collection'
+import { Route as StoryRouteImport } from './routes/story'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,6 +27,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const B2bRoute = B2bRouteImport.update({
+  id: '/b2b',
+  path: '/b2b',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CatalogRoute = CatalogRouteImport.update({
@@ -41,61 +49,102 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewCollectionRoute = NewCollectionRouteImport.update({
   id: '/new-collection',
   path: '/new-collection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoryRoute = StoryRouteImport.update({
+  id: '/story',
+  path: '/story',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/b2b': typeof B2bRoute
   '/catalog': typeof CatalogRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/new-collection': typeof NewCollectionRoute
+  '/story': typeof StoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/b2b': typeof B2bRoute
   '/catalog': typeof CatalogRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/new-collection': typeof NewCollectionRoute
+  '/story': typeof StoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/b2b': typeof B2bRoute
   '/catalog': typeof CatalogRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/new-collection': typeof NewCollectionRoute
+  '/story': typeof StoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/catalog' | '/categories' | '/contact' | '/new-collection'
+    | '/'
+    | '/about'
+    | '/b2b'
+    | '/catalog'
+    | '/categories'
+    | '/contact'
+    | '/faq'
+    | '/new-collection'
+    | '/story'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/about' | '/catalog' | '/categories' | '/contact' | '/new-collection'
+    | '/'
+    | '/about'
+    | '/b2b'
+    | '/catalog'
+    | '/categories'
+    | '/contact'
+    | '/faq'
+    | '/new-collection'
+    | '/story'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/b2b'
     | '/catalog'
     | '/categories'
     | '/contact'
+    | '/faq'
     | '/new-collection'
+    | '/story'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  B2bRoute: typeof B2bRoute
   CatalogRoute: typeof CatalogRoute
   CategoriesRoute: typeof CategoriesRoute
   ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
   NewCollectionRoute: typeof NewCollectionRoute
+  StoryRoute: typeof StoryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -112,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/b2b': {
+      id: '/b2b'
+      path: '/b2b'
+      fullPath: '/b2b'
+      preLoaderRoute: typeof B2bRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/catalog': {
@@ -135,11 +191,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/new-collection': {
       id: '/new-collection'
       path: '/new-collection'
       fullPath: '/new-collection'
       preLoaderRoute: typeof NewCollectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/story': {
+      id: '/story'
+      path: '/story'
+      fullPath: '/story'
+      preLoaderRoute: typeof StoryRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -148,10 +218,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  B2bRoute: B2bRoute,
   CatalogRoute: CatalogRoute,
   CategoriesRoute: CategoriesRoute,
   ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
   NewCollectionRoute: NewCollectionRoute,
+  StoryRoute: StoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

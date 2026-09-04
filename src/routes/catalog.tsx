@@ -1,21 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ProductCard } from "@/components/site/ProductCard";
-import { allColors, categories, products, WA_CATALOG_FULL } from "@/lib/data";
+import { categories, products, WA_CATALOG_FULL } from "@/lib/data";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/catalog")({
   head: () => ({
     meta: [
-      { title: "كتالوج الجملة | JOJO Store" },
+      { title: "الكتالوج | موديلات جوجو ستور للجملة" },
       {
         name: "description",
         content:
-          "كتالوج جملة جوجو ستورز الكامل — 17+ موديل حريمي ورجالي وأطفال وهوم وير وكاجوال بكل الألوان والمقاسات.",
+          "تصفح كتالوج جوجو ستور: ملابس حريمي ورجالي وأطفال وهوم وير وكاجوال متاحة للتوريد بالجملة مع الأكواد والألوان والمقاسات.",
       },
-      { property: "og:title", content: "كتالوج الجملة | JOJO Store" },
+      { property: "og:title", content: "الكتالوج | جوجو ستور" },
       {
         property: "og:description",
-        content: "كل موديلات الجملة المتاحة في جوجو ستورز بكل الأقسام.",
+        content: "أحدث موديلات جوجو ستور المتاحة للتوريد بالجملة.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -25,116 +26,90 @@ export const Route = createFileRoute("/catalog")({
 });
 
 function CatalogPage() {
-  const [category, setCategory] = useState<string>("all");
-  const [color, setColor] = useState<string>("all");
+  const { t, tx } = useI18n();
+  const [cat, setCat] = useState<string>("all");
+  const [newOnly, setNewOnly] = useState(false);
 
-  const filtered = useMemo(
-    () =>
-      products.filter(
-        (p) =>
-          (category === "all" || p.categoryId === category) &&
-          (color === "all" || p.colors.includes(color)),
-      ),
-    [category, color],
+  const list = products.filter(
+    (p) =>
+      (cat === "all" || p.categoryId === cat) && (!newOnly || p.isNew),
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-10 pt-32">
-      <span className="mb-3 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary">
-        كتالوج الجملة
+    <div className="mx-auto max-w-6xl px-4 pb-8 pt-32">
+      <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary">
+        {t("catalog.kicker")}
       </span>
-      <h1 className="font-heading text-3xl font-extrabold md:text-4xl">
-        كل الموديلات المتاحة
+      <h1 className="mt-4 font-heading text-4xl font-extrabold md:text-5xl">
+        {t("catalog.title")}
       </h1>
+      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+        {t("catalog.subtitle")}
+      </p>
 
-      {/* Filters */}
-      <div className="mt-8 space-y-4">
-        <div>
-          <p className="mb-2 text-xs font-bold text-muted-foreground">الأقسام</p>
-          <div className="flex flex-wrap gap-2">
-            <FilterChip
-              active={category === "all"}
-              onClick={() => setCategory("all")}
-              label="كل الأقسام"
-            />
-            {categories.map((c) => (
-              <FilterChip
-                key={c.id}
-                active={category === c.id}
-                onClick={() => setCategory(c.id)}
-                label={c.name}
-              />
-            ))}
-          </div>
-        </div>
-        <div>
-          <p className="mb-2 text-xs font-bold text-muted-foreground">الألوان</p>
-          <div className="flex flex-wrap gap-2">
-            <FilterChip
-              active={color === "all"}
-              onClick={() => setColor("all")}
-              label="كل الألوان"
-            />
-            {allColors.map((c) => (
-              <FilterChip
-                key={c}
-                active={color === c}
-                onClick={() => setColor(c)}
-                label={c}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-        <h2 className="font-heading text-xl font-bold">
-          {filtered.length} قطعة متاحة
-        </h2>
-        <a
-          href={WA_CATALOG_FULL}
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+      <div className="mt-8 flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => setCat("all")}
+          className={`rounded-full px-5 py-2 text-sm font-bold transition-colors ${
+            cat === "all"
+              ? "bg-primary text-primary-foreground"
+              : "border border-border bg-card text-foreground hover:bg-muted"
+          }`}
         >
-          اطلب الكتالوج عبر الواتساب
-        </a>
-      </div>
-
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((p) => (
-          <ProductCard key={p.code} product={p} />
+          {t("catalog.all")}
+        </button>
+        {categories.map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => setCat(c.id)}
+            className={`rounded-full px-5 py-2 text-sm font-bold transition-colors ${
+              cat === c.id
+                ? "bg-primary text-primary-foreground"
+                : "border border-border bg-card text-foreground hover:bg-muted"
+            }`}
+          >
+            {tx(c.name, c.nameEn)}
+          </button>
         ))}
+        <button
+          type="button"
+          onClick={() => setNewOnly((v) => !v)}
+          className={`rounded-full px-5 py-2 text-sm font-bold transition-colors ${
+            newOnly
+              ? "bg-charcoal text-white"
+              : "border border-border bg-card text-foreground hover:bg-muted"
+          }`}
+        >
+          {t("catalog.newOnly")}
+        </button>
       </div>
 
-      {filtered.length === 0 && (
-        <p className="mt-16 text-center text-sm text-muted-foreground">
-          لا توجد قطع مطابقة للفلاتر المختارة.
-        </p>
-      )}
-    </div>
-  );
-}
+      <p className="mt-5 text-xs text-muted-foreground">
+        {list.length} {t("catalog.count")}
+      </p>
 
-function FilterChip({
-  active,
-  onClick,
-  label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
-        active
-          ? "bg-primary text-primary-foreground"
-          : "bg-card text-foreground ring-1 ring-border hover:bg-muted"
-      }`}
-    >
-      {label}
-    </button>
+      {list.length === 0 ? (
+        <p className="mt-10 rounded-3xl bg-card p-10 text-center text-sm text-muted-foreground ring-1 ring-border">
+          {t("catalog.empty")}
+        </p>
+      ) : (
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((p) => (
+            <ProductCard key={p.code} product={p} />
+          ))}
+        </div>
+      )}
+
+      <a
+        href={WA_CATALOG_FULL}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-10 inline-block rounded-full bg-primary px-7 py-3 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+      >
+        {t("nav.cta")}
+      </a>
+    </div>
   );
 }
