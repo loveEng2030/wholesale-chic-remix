@@ -21,6 +21,9 @@ export const PHONE_INTL = "201061318862";
 export const ADDRESS =
   "16 شارع جمال عبد الناصر أمام مستشفى ماري جرجس، حدائق حلوان، القاهرة";
 
+export const ADDRESS_EN =
+  "16 Gamal Abdel Nasser St., in front of Mari Girgis Hospital, Hadayek Helwan, Cairo";
+
 export const waLink = (message: string) =>
   `https://wa.me/${PHONE_INTL}?text=${encodeURIComponent(message)}`;
 
@@ -135,3 +138,7 @@ export const categoryWaLink = (name: string) =>
 
 export const newProducts = products.filter((p) => p.isNew);
 export const stapleProducts = products.filter((p) => !p.isNew);
+
+export const WA_B2B = waLink(
+  "السلام عليكم، أرغب في طلب عرض توريد B2B من JOJO Store",
+);
