@@ -126,6 +126,25 @@ export const allColors = [
   "رمادي", "زيتي", "كحلي", "لافندر", "لبني", "مشكل", "منت", "نبيتي",
 ];
 
+export const colorHex: Record<string, string> = {
+  "أحمر": "#c0392b",
+  "أزرق": "#2563eb",
+  "أسود": "#1a1a1a",
+  "أصفر": "#eab308",
+  "أوف وايت": "#f3efe7",
+  "بمبي": "#e8a0b4",
+  "بني": "#7b4a2d",
+  "بيج": "#d9c3a5",
+  "رمادي": "#9ca3af",
+  "زيتي": "#5b6b3a",
+  "كحلي": "#1e2a52",
+  "لافندر": "#b9a4d8",
+  "لبني": "#a8cbe8",
+  "مشكل": "#c9a84c",
+  "منت": "#8fd6bd",
+  "نبيتي": "#6b2233",
+};
+
 export const productWaLink = (p: Product) =>
   waLink(
     `السلام عليكم، أرغب في الاستفسار عن طلب جملة للمنتج: ${p.name} (كود ${p.code.toLowerCase()}) - قسم ${p.category}. من JOJO Store`,
