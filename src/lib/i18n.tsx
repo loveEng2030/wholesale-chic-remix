@@ -120,8 +120,8 @@ const dict = {
 
   "b2b.kicker": ["توريد تجاري", "Commercial supply"],
   "b2b.title": [
-    "شريك توريد للمتاجر والموزعين",
-    "A supply partner for stores and distributors",
+    "جوجو — شريك تصنيع وتوريد للمتاجر",
+    "JOJO — a manufacturing and supply partner for stores",
   ],
   "b2b.subtitle": [
     "حلول توريد B2B للمتاجر، تجار الجملة، وشركات التوزيع داخل مصر والخليج.",
@@ -171,6 +171,11 @@ const dict = {
   "catalog.subtitle": [
     "تصفح الموديلات المتاحة للتوريد واطلب أي كود على واتساب مباشرة.",
     "Browse the styles available for supply and order any code directly on WhatsApp.",
+  ],
+  "catalog.allColors": ["كل الألوان", "All colours"],
+  "catalog.searchPlaceholder": [
+    "ابحث باسم الموديل أو الكود",
+    "Search by style name or code",
   ],
   "catalog.all": ["كل الأقسام", "All categories"],
   "catalog.newOnly": ["الجديد فقط", "New only"],
