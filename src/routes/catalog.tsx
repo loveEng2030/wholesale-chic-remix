@@ -26,13 +26,22 @@ export const Route = createFileRoute("/catalog")({
 });
 
 function CatalogPage() {
-  const { t, tx } = useI18n();
+  const { t, tx, tColor } = useI18n();
   const [cat, setCat] = useState<string>("all");
+  const [color, setColor] = useState<string>("all");
+  const [q, setQ] = useState("");
   const [newOnly, setNewOnly] = useState(false);
 
+  const query = q.trim().toLowerCase();
   const list = products.filter(
     (p) =>
-      (cat === "all" || p.categoryId === cat) && (!newOnly || p.isNew),
+      (cat === "all" || p.categoryId === cat) &&
+      (color === "all" || p.colors.includes(color)) &&
+      (!newOnly || p.isNew) &&
+      (query === "" ||
+        p.name.toLowerCase().includes(query) ||
+        p.nameEn.toLowerCase().includes(query) ||
+        p.code.toLowerCase().includes(query)),
   );
 
   return (
@@ -86,9 +95,50 @@ function CatalogPage() {
         </button>
       </div>
 
+      <div className="mt-5 grid gap-5 rounded-3xl bg-card p-5 ring-1 ring-border lg:grid-cols-2">
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setColor("all")}
+            className={`rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+              color === "all"
+                ? "bg-primary text-primary-foreground"
+                : "border border-border text-foreground hover:bg-muted"
+            }`}
+          >
+            {t("catalog.allColors")}
+          </button>
+          {allColors.map((c) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => setColor((v) => (v === c ? "all" : c))}
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+                color === c
+                  ? "bg-primary text-primary-foreground"
+                  : "border border-border text-foreground hover:bg-muted"
+              }`}
+            >
+              {tColor(c)}
+              <span
+                className="h-4 w-4 rounded-full ring-1 ring-border"
+                style={{ backgroundColor: colorHex[c] ?? "#ddd" }}
+              />
+            </button>
+          ))}
+        </div>
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder={t("catalog.searchPlaceholder")}
+          className="h-full min-h-14 w-full rounded-2xl border border-border bg-background px-5 py-3 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
+        />
+      </div>
+
       <p className="mt-5 text-xs text-muted-foreground">
         {list.length} {t("catalog.count")}
       </p>
+
 
       {list.length === 0 ? (
         <p className="mt-10 rounded-3xl bg-card p-10 text-center text-sm text-muted-foreground ring-1 ring-border">
