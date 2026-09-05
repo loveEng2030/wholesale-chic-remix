@@ -1,5 +1,5 @@
 import { BadgeCheck } from "lucide-react";
-import { categories, productWaLink, type Product } from "@/lib/data";
+import { categories, colorHex, productWaLink, type Product } from "@/lib/data";
 import { useI18n } from "@/lib/i18n";
 
 export function ProductCard({ product }: { product: Product }) {
