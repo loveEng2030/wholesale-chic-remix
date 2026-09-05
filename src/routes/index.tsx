@@ -58,7 +58,7 @@ function Home() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden pb-20 pt-32">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden">
         <video
           src={heroVideo}
           poster={heroPoster}
@@ -66,40 +66,52 @@ function Home() {
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover"
+          className="hero-zoom absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-background/85 backdrop-blur-[2px]" />
+        <div className="hero-overlay absolute inset-0" />
 
-        <div className="relative mx-auto max-w-6xl px-4 text-center">
-          <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary">
+        <div className="relative mx-auto w-full max-w-6xl px-4 py-28 text-center">
+          <span
+            className="hero-rise inline-block rounded-full border border-white/25 bg-white/10 px-5 py-1.5 text-xs font-bold tracking-[0.2em] text-white backdrop-blur-md"
+            style={{ animationDelay: "0.05s" }}
+          >
             {t("hero.kicker")}
           </span>
-          <h1 className="mx-auto mt-5 max-w-4xl font-heading text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1
+            className="hero-rise mx-auto mt-6 max-w-4xl font-heading text-4xl font-extrabold leading-[1.15] text-white drop-shadow-lg md:text-6xl lg:text-7xl"
+            style={{ animationDelay: "0.15s" }}
+          >
             {t("hero.title")}
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground md:text-lg">
+          <p
+            className="hero-rise mx-auto mt-6 max-w-2xl text-base text-white/85 md:text-lg"
+            style={{ animationDelay: "0.25s" }}
+          >
             {t("hero.subtitle")}
           </p>
-          <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            {t("hero.body")}
-          </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div
+            className="hero-rise mt-9 flex flex-wrap justify-center gap-3"
+            style={{ animationDelay: "0.35s" }}
+          >
             <Link
               to="/b2b"
-              className="rounded-full bg-primary px-7 py-3 text-sm font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+              className="rounded-full bg-primary px-8 py-3.5 text-sm font-bold text-primary-foreground shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90"
             >
               {t("nav.cta")}
             </Link>
             <Link
               to="/catalog"
-              className="rounded-full border border-border bg-card px-7 py-3 text-sm font-bold text-foreground transition-colors hover:bg-muted"
+              className="rounded-full border border-white/40 bg-white/10 px-8 py-3.5 text-sm font-bold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20"
             >
               {t("common.browseCatalog")}
             </Link>
           </div>
 
-          <div className="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-3">
+          <div
+            className="hero-rise mx-auto mt-14 grid max-w-3xl gap-4 sm:grid-cols-3"
+            style={{ animationDelay: "0.45s" }}
+          >
             {[
               { v: "20+", k: "hero.stat1" as TKey },
               { v: "200%+", k: "hero.stat2" as TKey },
@@ -107,17 +119,18 @@ function Home() {
             ].map((s) => (
               <div
                 key={s.v}
-                className="rounded-3xl bg-card/90 p-6 ring-1 ring-border"
+                className="rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-colors duration-300 hover:bg-white/15"
               >
-                <p className="font-heading text-3xl font-extrabold text-primary">
+                <p className="font-heading text-3xl font-extrabold text-white">
                   {s.v}
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">{t(s.k)}</p>
+                <p className="mt-1 text-xs text-white/75">{t(s.k)}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Discover */}
       <section className="mx-auto max-w-6xl px-4 py-16">
