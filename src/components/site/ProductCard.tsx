@@ -44,12 +44,17 @@ export function ProductCard({ product }: { product: Product }) {
           {product.colors.map((c) => (
             <span
               key={c}
-              className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground"
+              className="flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground"
             >
+              <span
+                className="h-3.5 w-3.5 rounded-full ring-1 ring-border"
+                style={{ backgroundColor: colorHex[c] ?? "#ddd" }}
+              />
               {tColor(c)}
             </span>
           ))}
         </div>
+
 
         <div className="flex flex-wrap gap-1.5">
           {product.sizes.map((s) => (
