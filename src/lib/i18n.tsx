@@ -315,7 +315,16 @@ interface I18nValue {
   tColor: (ar: string) => string;
 }
 
-const I18nContext = createContext<I18nValue | null>(null);
+const defaultI18n: I18nValue = {
+  lang: "ar",
+  setLang: () => {},
+  dir: "rtl",
+  t: (key) => dict[key][0],
+  tx: (ar) => ar,
+  tColor: (ar) => ar,
+};
+
+const I18nContext = createContext<I18nValue>(defaultI18n);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("ar");
@@ -350,7 +359,5 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 }
 
 export function useI18n() {
-  const ctx = useContext(I18nContext);
-  if (!ctx) throw new Error("useI18n must be used inside I18nProvider");
-  return ctx;
+  return useContext(I18nContext);
 }
