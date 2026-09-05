@@ -10,23 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as B2bRouteImport } from './routes/b2b'
 import { Route as CatalogRouteImport } from './routes/catalog'
-import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
-import { Route as NewCollectionRouteImport } from './routes/new-collection'
 import { Route as StoryRouteImport } from './routes/story'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const B2bRoute = B2bRouteImport.update({
@@ -39,11 +31,6 @@ const CatalogRoute = CatalogRouteImport.update({
   path: '/catalog',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CategoriesRoute = CategoriesRouteImport.update({
-  id: '/categories',
-  path: '/categories',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -54,11 +41,6 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NewCollectionRoute = NewCollectionRouteImport.update({
-  id: '/new-collection',
-  path: '/new-collection',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const StoryRoute = StoryRouteImport.update({
   id: '/story',
   path: '/story',
@@ -67,83 +49,43 @@ const StoryRoute = StoryRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/b2b': typeof B2bRoute
   '/catalog': typeof CatalogRoute
-  '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
-  '/new-collection': typeof NewCollectionRoute
   '/story': typeof StoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/b2b': typeof B2bRoute
   '/catalog': typeof CatalogRoute
-  '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
-  '/new-collection': typeof NewCollectionRoute
   '/story': typeof StoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/b2b': typeof B2bRoute
   '/catalog': typeof CatalogRoute
-  '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
-  '/new-collection': typeof NewCollectionRoute
   '/story': typeof StoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/b2b'
-    | '/catalog'
-    | '/categories'
-    | '/contact'
-    | '/faq'
-    | '/new-collection'
-    | '/story'
+  fullPaths: '/' | '/b2b' | '/catalog' | '/contact' | '/faq' | '/story'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/b2b'
-    | '/catalog'
-    | '/categories'
-    | '/contact'
-    | '/faq'
-    | '/new-collection'
-    | '/story'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/b2b'
-    | '/catalog'
-    | '/categories'
-    | '/contact'
-    | '/faq'
-    | '/new-collection'
-    | '/story'
+  to: '/' | '/b2b' | '/catalog' | '/contact' | '/faq' | '/story'
+  id: '__root__' | '/' | '/b2b' | '/catalog' | '/contact' | '/faq' | '/story'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
   B2bRoute: typeof B2bRoute
   CatalogRoute: typeof CatalogRoute
-  CategoriesRoute: typeof CategoriesRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
-  NewCollectionRoute: typeof NewCollectionRoute
   StoryRoute: typeof StoryRoute
 }
 
@@ -154,13 +96,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/b2b': {
@@ -177,13 +112,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/categories': {
-      id: '/categories'
-      path: '/categories'
-      fullPath: '/categories'
-      preLoaderRoute: typeof CategoriesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -198,13 +126,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/new-collection': {
-      id: '/new-collection'
-      path: '/new-collection'
-      fullPath: '/new-collection'
-      preLoaderRoute: typeof NewCollectionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/story': {
       id: '/story'
       path: '/story'
@@ -217,13 +138,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
   B2bRoute: B2bRoute,
   CatalogRoute: CatalogRoute,
-  CategoriesRoute: CategoriesRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
-  NewCollectionRoute: NewCollectionRoute,
   StoryRoute: StoryRoute,
 }
 export const routeTree = rootRouteImport
